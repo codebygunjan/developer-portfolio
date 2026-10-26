@@ -1,4 +1,5 @@
 import { BarChart, Code2, GraduationCap } from "lucide-react";
+import Image from "next/image";
 
 export default function Hero() {
   const ideas = [
@@ -40,10 +41,13 @@ export default function Hero() {
           <div className=" absolute inset-0 rounded-full border-t-4 border-b-4 border-accent-strong animate-spin"></div>
           <div className=" absolute inset-2 rounded-full border-r border-l border-accent animate-pulse"></div>
           <div className="h-50 w-50 inset-4 rounded-full">
-            <img
+            <Image
               src="/profileImg.png"
-              className="h-full w-full object-cover bg-center rounded-full"
-              alt=""
+              alt="Gunjan Khudaniya"
+              width={500}
+              height={500}
+              priority
+              className="h-full w-full object-cover rounded-full"
             />
           </div>
         </div>

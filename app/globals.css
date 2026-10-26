@@ -38,3 +38,13 @@ body {
     @apply border border-border border-t-2 border-l-2 border-r border-b rounded-2xl shadow-xs shadow-blue-500/50;
   }
 }
+
+html,
+body {
+  scroll-behavior: smooth !important;
+}
+/* @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: smooth;
+  }
+} */

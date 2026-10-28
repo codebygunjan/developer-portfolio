@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { ArrowUpRight } from "lucide-react";
 import { AiFillGithub } from "react-icons/ai";
 
@@ -26,9 +31,56 @@ export default function Projects() {
       image: "/hadan.png",
     },
   ];
+
+  const infoRef = useRef<HTMLDivElement>(null);
+
+  const projectRef = useRef<HTMLElement>(null);
+  useGSAP(() => {
+    gsap.from(projectRef.current, {
+      opacity: 0,
+      y: 100,
+      duration: 0.9,
+      scrollTrigger: {
+        trigger: projectRef.current,
+        start: "top 60%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    gsap.from(infoRef.current, {
+      opacity: 0,
+      x: -50,
+      duration: 0.8,
+    });
+  });
+
+  useGSAP(() => {
+    gsap.from(".project-info", {
+      opacity: 0,
+      x: -100,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: ".project-info",
+        start: "top 60%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    gsap.from(".project-image", {
+      opacity: 0,
+      x: 100,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: ".project-image",
+        start: "top 60%",
+        toggleActions: "play none none reverse",
+      },
+    });
+  });
   return (
     <section
       id="projects"
+      ref={projectRef}
       className="portfolio-panel my-10 p-4 lg:py-6 bg-card flex flex-col items-start"
     >
       <div className="text-accent-strong text-[22px] border border-accent/20 bg-accent/10 flex gap-2 items-center w-50 px-5 py-1 rounded-3xl">
@@ -54,7 +106,7 @@ export default function Projects() {
               key={info.id}
               className="mt-10 flex items-center flex-col xl:flex-row my-2"
             >
-              <div>
+              <div className="project-info">
                 <p className="text-foreground/80 text-xl">
                   0{info.id} -
                   <span className="text-3xl font-bold font-heading text-accent-strong">
@@ -103,7 +155,7 @@ export default function Projects() {
               {/* image div */}
 
               {/* Laptop mockup */}
-              <div className="w-full max-w-3xl mx-auto my-4">
+              <div className="project-image w-full max-w-3xl mx-auto my-4">
                 {/* Laptop screen */}
                 <div className="relative rounded-t-xl border-2 border-b-0 border-slate-600/80 bg-slate-900 p-2 shadow-xl shadow-blue-900/30">
                   <div className="overflow-hidden rounded-md border border-white/10">

@@ -1,3 +1,4 @@
+"use client";
 import { GraduationCap } from "lucide-react";
 import {
   FaHtml5,
@@ -20,6 +21,10 @@ import {
 } from "react-icons/si";
 
 import { VscVscode } from "react-icons/vsc";
+
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useRef } from "react";
 
 export default function Skiils() {
   const skillCategories = [
@@ -69,9 +74,35 @@ export default function Skiils() {
     },
   ];
 
+  const skillsRef = useRef<HTMLElement>(null);
+  useGSAP(() => {
+    gsap.from(skillsRef.current, {
+      opacity: 0,
+      y: 100,
+      duration: 0.9,
+      scrollTrigger: {
+        trigger: skillsRef.current,
+        start: "top 60%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    gsap.from(".skill-card", {
+      opacity: 0,
+      x: 150,
+      duration: 0.6,
+      stagger: 0.4,
+      scrollTrigger: {
+        trigger: skillsRef.current,
+        start: "top 60%",
+        toggleActions: "play none none reverse",
+      },
+    });
+  });
   return (
     <section
       id="skills"
+      ref={skillsRef}
       className="portfolio-panel my-10 mt-12 p-4 lg:py-6 bg-card flex flex-col items-start"
     >
       <div>
@@ -92,7 +123,7 @@ export default function Skiils() {
       </div>
 
       <div>
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 mt-5 xl:gap-3">
+        <div className="skill-card grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 mt-5 xl:gap-3">
           {skillCategories.map((skill) => {
             return (
               <div

@@ -1,7 +1,30 @@
+"use client";
+
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 import { FaLaptop, FaPaintBrush } from "react-icons/fa";
 import { BiSolidZap } from "react-icons/bi";
 import { Code2 } from "lucide-react";
+
 export default function About() {
+  const aboutRef = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    gsap.from(aboutRef.current, {
+      opacity: 0,
+      y: 100,
+      duration: 0.9,
+      scrollTrigger: {
+        trigger: aboutRef.current,
+        start: "top 60%",
+        toggleActions: "play none none reverse",
+      },
+    });
+  });
+
   const passion = [
     {
       id: 1,
@@ -31,6 +54,7 @@ export default function About() {
   return (
     <section
       id="about"
+      ref={aboutRef}
       className="portfolio-panel my-10 mt-12 p-4 lg:py-6 bg-card flex flex-col items-start"
     >
       <div className="text-accent-strong/80 text-[22px] border border-accent/20 bg-accent/10 flex items-center px-5 py-1 rounded-3xl">

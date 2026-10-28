@@ -1,7 +1,56 @@
+"use client";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { BarChart, Code2, GraduationCap } from "lucide-react";
 import Image from "next/image";
+import { useRef } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Hero() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  gsap.registerPlugin(useGSAP, ScrollTrigger);
+  useGSAP(() => {
+    const tl = gsap.timeline();
+
+    gsap.from(cardRef.current, {
+      opacity: 0,
+      y: 70,
+      duration: 0.5,
+    });
+
+    tl.from(".profile-text", {
+      opacity: 0,
+      y: 90,
+      duartion: 1.5,
+    });
+
+    tl.from(".profile-info", {
+      opacity: 0,
+      y: 90,
+      duartion: 1,
+    });
+    tl.from(introRef.current, {
+      opacity: 0,
+      x: 100,
+      duration: 0.4,
+    });
+    tl.from(statsRef.current, {
+      opacity: 0,
+      x: 100,
+      duration: 0.4,
+    });
+  });
+  useGSAP(() => {
+    gsap.from(titleRef.current, {
+      opacity: 0,
+      y: 150,
+      duration: 1,
+    });
+  });
+
   const ideas = [
     {
       Id: 1,
@@ -35,7 +84,10 @@ export default function Hero() {
   ];
   return (
     <main id="home" className="mt-35 flex md:flex-row flex-col gap-10">
-      <div className="bg-card pt-10 pb-5 px-10 flex flex-col items-center md:w-120  portfolio-panel">
+      <div
+        ref={cardRef}
+        className="bg-card pt-10 pb-5 px-10 flex flex-col items-center md:w-120  portfolio-panel"
+      >
         {/* left side */}
         <div className="relative h-60 w-60 flex justify-center items-center">
           <div className=" absolute inset-0 rounded-full border-t-4 border-b-4 border-accent-strong animate-spin"></div>
@@ -53,13 +105,16 @@ export default function Hero() {
         </div>
 
         <div className="flex justify-center flex-col items-center lg:mt-15">
-          <h1 className="text-accent text-2xl font-semibold whitespace-nowrap">
+          <h1
+            ref={titleRef}
+            className="text-accent text-2xl font-semibold whitespace-nowrap"
+          >
             Gunjan Khudaniya
           </h1>
-          <h1 className="text-foreground text-3xl font-medium pt-1 font-sans whitespace-nowrap">
+          <h1 className="profile-text text-foreground text-3xl font-medium pt-1 font-sans whitespace-nowrap">
             Frontend Developer
           </h1>
-          <p className="text-muted text-md py-5 text-center">
+          <p className="profile-info text-muted text-md py-5 text-center">
             I build modern, responsive and interactive web experiences with a
             passion for clean design and smooth animations.
           </p>
@@ -68,7 +123,10 @@ export default function Hero() {
 
       {/* info */}
       <div className="flex flex-col w-full gap-5">
-        <div className="portfolio-panel flex items-start flex-col py-1 bg-card">
+        <div
+          ref={introRef}
+          className="portfolio-panel flex items-start flex-col py-1 bg-card"
+        >
           <div className="flex items-center bg-green-800/55 gap-3 w-auto text-green-100 px-9 py-1 rounded-full m-5">
             <div className="h-2.5 w-2.5 animate-ping [animation-duration:0.7s] bg-green-400 rounded-full"></div>
             Available for Work
@@ -107,7 +165,10 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="w-full portfolio-panel flex justify-around flex-wrap  lg:divide-x lg:divide-border py-3 bg-card">
+        <div
+          ref={statsRef}
+          className="w-full portfolio-panel flex justify-around flex-wrap  lg:divide-x lg:divide-border py-3 bg-card"
+        >
           {ideas.map((idea) => {
             const Icon = idea.icon;
             return (

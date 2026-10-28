@@ -30,6 +30,7 @@ body {
 }
 
 *::selection {
+  color: white;
   background-color: black;
 }
 
